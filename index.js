@@ -16,6 +16,12 @@ function ExtractTextPluginCompilation() {
 }
 
 ExtractTextPlugin.prototype.mergeNonInitialChunks = function(chunk, intoChunk, checkedChunks) {
+	if (chunk.chunks) {
+		chunk.chunks = chunk.chunks.filter(function(c) {
+			return typeof c !== 'undefined';
+		})
+	}
+
 	if(!intoChunk) {
 		checkedChunks = [];
 		chunk.chunks.forEach(function(c) {
