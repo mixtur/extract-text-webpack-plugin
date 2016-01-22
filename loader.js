@@ -109,8 +109,8 @@ module.exports.pitch = function(request) {
 						if(text.locals) {
 							resultSource += "\nmodule.exports = " + JSON.stringify(text.locals) + ";";
 						}
-						resultSource += '\nif(module.hot){require("' + require.resolve('./hotModuleReplacement.js') + '")' +
-							'("' + compilation.hash + '", "%%extracted-file%%");}'
+						resultSource += '\nif(module.hot){module.hot._selfAccepted=true; require("' + require.resolve('./hotModuleReplacement.js') + '")' +
+							'("' + compilation.hash + '", "' + publicPath + '", "%%extracted-file%%");}'
 					}
 				} catch(e) {
 					return callback(e);

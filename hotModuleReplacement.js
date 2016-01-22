@@ -18,7 +18,7 @@ function replaceStylesheet(styleSheet, url) {
   }, 100);
 }
 
-module.exports = function(compilationHash, outputFilename) {
+module.exports = function(compilationHash, publicPath, outputFilename) {
   if (document) {
     var styleSheets = document.getElementsByTagName('link');
     for (var i = 0; i < styleSheets.length; i++) {
@@ -26,7 +26,7 @@ module.exports = function(compilationHash, outputFilename) {
         var hrefUrl = styleSheets[i].href.split('?');
         var href = hrefUrl[0];
         var hash = hrefUrl[1];
-        if (hash !== compilationHash && href === document.location.origin + '/' + outputFilename) {
+        if (hash !== compilationHash && href === document.location.origin + publicPath + outputFilename) {
           replaceStylesheet(styleSheets[i], href + '?' + compilationHash);
           break;
         }
