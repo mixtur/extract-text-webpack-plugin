@@ -111,7 +111,7 @@ module.exports.pitch = function(request) {
 							resultSource += "\nmodule.exports = " + JSON.stringify(text.locals) + ";";
 						}
 						resultSource += '\nif(module.hot){module.hot.accept(); require("' + require.resolve('./hotModuleReplacement.js') + '")' +
-							'("' + compilation.hash + '", ' + query.devServerPort + ', "' + publicPath + '", "%%extracted-file%%");}'
+							'("' + compilation.hash + '", ' + (query.devServerPort || 'null') + ', "' + publicPath + '", "%%extracted-file%%");}'
 					}
 				} catch(e) {
 					return callback(e);
