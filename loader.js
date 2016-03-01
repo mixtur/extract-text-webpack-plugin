@@ -38,6 +38,7 @@ module.exports.pitch = function(request) {
 
 		if(query.extract !== false) {
 			var childFilename = "extract-text-webpack-plugin-output-filename"; // eslint-disable-line no-path-concat
+
 			var publicPath = typeof query.publicPath === "string" ? query.publicPath : this._compilation.outputOptions.publicPath;
 			var outputOptions = {
 				filename: childFilename,
@@ -109,8 +110,8 @@ module.exports.pitch = function(request) {
 						if(text.locals) {
 							resultSource += "\nmodule.exports = " + JSON.stringify(text.locals) + ";";
 						}
-						resultSource += '\nif(module.hot){module.hot._selfAccepted=true; require("' + require.resolve('./hotModuleReplacement.js') + '")' +
-							'("' + compilation.hash + '", "' + publicPath + '", "%%extracted-file%%");}'
+						resultSource += '\nif(module.hot){module.hot.accept(); require("' + require.resolve('./hotModuleReplacement.js') + '")' +
+							'("' + compilation.hash + '", ' + query.devServerPort + ', "' + publicPath + '", "%%extracted-file%%");}'
 					}
 				} catch(e) {
 					return callback(e);
